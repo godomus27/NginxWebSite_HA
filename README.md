@@ -56,7 +56,7 @@ $ docker network create ville-net -d overlay
 ```
 $ docker network ls
 ```
-#####Mise en place sur le  CLuster des outils  Monitoring & visualisation
+##### Mise en place sur le  CLuster des outils  Monitoring & visualisation
 ```
 ville-webservices01:~user$
 docker service create \
@@ -66,7 +66,7 @@ docker service create \
   --mount=type=bind,src=/var/run/docker.sock,dst=/var/run/docker.sock \
   dockersamples/visualizer
  ``` 
-#####Google Monitor
+##### Google Monitor
 ```
 ville-webservices01:~user$ docker service create \
 								—network ville-net \
@@ -79,15 +79,15 @@ ville-webservices01:~user$ docker service create \
   								--name=cadvisor  google/cadvisor:latest
 ```
 
-#####Create the docker registry
+##### Create the docker registry
 ```
 ville-webservices01:~user$  docker service create --name registry  --network ville-net --publish 5000:5000 registry:2
 ```
-####Changer le nom de mon image pour le deposer sur le registry
+#### Changer le nom de mon image pour le deposer sur le registry
 ```
 ville-webservices01:~user$  docker tag godomus27/web01  localhost:5000/web01
 ```
-#####Pouser l’image vers le repot
+##### Pouser l’image vers le repot
 ```
 ville-webservices01:~user$  docker push localhost:5000/web01
 ```
@@ -115,8 +115,8 @@ On peut voir status en LIVE des chaque instance du service sitewebville dans un 
 On peut voir la consommation de resource sur le cluster de docker swarm dans un navigateur avec le http://IP_SWARM_MASTER:8080
 
 ###### Pour mettre à jour le site à jour dans interruption de service 
-####### On telecharge la dernière version du code avec GIT CLONE;  ou WGET; SVN CO; 
-####### On se déplace dans le répertoire ou on a notre docker file
+ On telecharge la dernière version du code avec GIT CLONE;  ou WGET; SVN CO; 
+ On se déplace dans le répertoire ou on a notre docker file
 ###### Creation de la nouvelle version de l’image et son déplacement dans dans notre dépôt d'images
 
 ```
@@ -128,6 +128,6 @@ ville-webservices01:~user$  docker push  localhost:5000/web02
 ```
 ville-webservices01:~user$  docker service update --replicas 12  --update-delay 10s --update-parallelism 2 --name sitewebville --image localhost:5000/web02
 ```
-On peut tester la page dans un navigateur avec le http://IP_SWARM_MASTER 
-On peut voir status en LIVE des chaque instance du service sitewebville dans un navigateur avec le http://IP_SWARM_MASTER:5010
-On peut voir la consommation de resource sur le cluster de docker swarm dans un navigateur avec le http://IP_SWARM_MASTER:8080
+###### On peut tester la page dans un navigateur avec le http://IP_SWARM_MASTER 
+###### On peut voir status en LIVE des chaque instance du service sitewebville dans un navigateur avec le http://IP_SWARM_MASTER:5010
+###### On peut voir la consommation de resource sur le cluster de docker swarm dans un navigateur avec le http://IP_SWARM_MASTER:8080
